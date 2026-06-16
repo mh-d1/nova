@@ -190,3 +190,13 @@ body{
 .music-btn:active{
   transform:scale(0.9);
 }
+@media (max-width: 430px) {
+  .choices {
+    padding-bottom: 18px;
+    padding-top: 14px;
+  }
+
+  .chat {
+    padding-bottom: 90px;
+  }
+}
