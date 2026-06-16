@@ -12,24 +12,21 @@ const musicBtn = document.getElementById("musicBtn");
 
 let musicOn = false;
 
-// 🌙 intro (lebih chill, deket, gak drama)
 const intro = [
   "hai 😳",
   "aku Nova",
-  "kamu lagi apa? 😗",
+  "aku mau ngobrol sama kamu nih 😗",
 ];
 
-// 🌙 questions (simple, kayak chat beneran)
 const questions = [
-  "lagi di mana? 🥺",
-  "udah makan? 🍽️",
-  "lagi ngapain? 😙",
-  "kalau aku di sebelah kamu, kamu ngapain? 🤭",
-  "lagi kepikiran sesuatu ya? 👀",
+  "kamu lagi di mana? 🥺",
+  "kamu udah makan? 🍽️",
+  "kamu lagi ngapain? 😙",
+  "kalau aku di sebelah kamu, kamu ngapain sih? 🤭",
+  "kamu lagi kepikiran sesuatu ya? 👀",
   "kalau aku deket kamu, kamu risih gak? 😶",
 ];
 
-// 💞 choices (lebih real, gak terlalu “script”)
 const optionSets = [
   ["di kamar", "di luar", "rebahan", "gak tau"],
 
@@ -44,7 +41,6 @@ const optionSets = [
   ["nyaman", "lumayan", "biasa aja", "agak risih"],
 ];
 
-// 💞 responses (natural, kayak pacaran santai)
 const responses = [
   {
     "di kamar": ["oh di kamar", "lagi santai ya", "enak sih itu"],
@@ -68,15 +64,15 @@ const responses = [
   },
 
   {
-    "peluk kamu": ["eh 😳", "ngapain tiba-tiba", "bikin aku diem"],
+    "peluk kamu": ["eh 😳", "ngapain tiba-tiba", "tapi lucu juga kamu tuh"],
     "deket aja": ["ya udah gitu aja", "gak perlu jauh-jauh", "simple aja"],
-    "ngobrol": ["ya ngobrol aja", "aku gak keberatan", "santai aja"],
+    "ngobrol": [" ngobrol aja", "aku gak keberatan", "santai aja"],
     "malu": ["ngapain malu 😭", "lucu kamu", "aku diem deh"],
   },
 
   {
     "iya": ["oh pantes", "kepikiran apa?", "cerita aja"],
-    "sering": ["sering banget?", "sama ya kadang", "aku juga"],
+    "sering": ["sering banget?", "sama sih", "kadang aku juga"],
     "gak tau": ["yaudah santai", "gak harus dipikirin", "pelan-pelan aja"],
     "enggak": ["oh yaudah", "berarti santai ya", "oke"],
   },
@@ -89,7 +85,6 @@ const responses = [
   },
 ];
 
-// ===== UI =====
 function addMsg(text, type) {
   const div = document.createElement("div");
   div.className = "msg " + type;
@@ -109,7 +104,6 @@ function hideTyping() {
   typing.classList.add("hidden");
 }
 
-// ===== FLOW =====
 let queue = Promise.resolve();
 
 function wait(ms) {
@@ -131,7 +125,6 @@ function speak(lines) {
   return queue;
 }
 
-// ===== CHOICES =====
 function showChoices() {
   choices.innerHTML = "";
 
@@ -144,7 +137,6 @@ function showChoices() {
   });
 }
 
-// ===== HANDLE =====
 function handle(opt) {
   if (locked) return;
   locked = true;
@@ -172,7 +164,6 @@ function handle(opt) {
   });
 }
 
-// ===== START =====
 function startChat() {
   home.classList.add("hidden");
   chatScreen.classList.remove("hidden");
@@ -186,7 +177,6 @@ function startChat() {
   });
 }
 
-// ===== RESET =====
 function goHome() {
   chatScreen.classList.add("hidden");
   home.classList.remove("hidden");
@@ -201,7 +191,6 @@ function goHome() {
   musicBtn.innerText = "▶";
 }
 
-// ===== MUSIC =====
 function fadeIn(audio) {
   audio.volume = 0;
   audio.play().catch(() => {});
