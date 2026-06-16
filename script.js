@@ -12,177 +12,80 @@ const musicBtn = document.getElementById("musicBtn");
 
 let musicOn = false;
 
-// 🌙 intro (lebih hangat & natural)
+// 🌙 intro (lebih chill, deket, gak drama)
 const intro = [
-  "hai kamu 😳",
+  "hai 😳",
   "aku Nova",
-  "aku seneng kamu akhirnya datang 🤍",
-  "aku cuma mau ngobrol sama kamu 😗",
+  "kamu lagi apa? 😗",
 ];
 
-// 🌙 questions (lebih natural, gak kaku)
+// 🌙 questions (simple, kayak chat beneran)
 const questions = [
-  "kamu lagi di mana sih? 🥺",
-  "udah makan belum hari ini? 🍽️",
-  "lagi ngapain sih sekarang? 😙",
-  "kalau aku duduk di samping kamu, kamu pengen ngapain? 🤭",
-  "kamu lagi kepikiran sesuatu gak? 👀",
-  "kalau aku di dekat kamu, kamu nyaman gak? 🌙",
+  "lagi di mana? 🥺",
+  "udah makan? 🍽️",
+  "lagi ngapain? 😙",
+  "kalau aku di sebelah kamu, kamu ngapain? 🤭",
+  "lagi kepikiran sesuatu ya? 👀",
+  "kalau aku deket kamu, kamu risih gak? 😶",
 ];
 
-// 💞 choices (tetap santai & deket)
+// 💞 choices (lebih real, gak terlalu “script”)
 const optionSets = [
-  ["di kamar 🛏️", "di luar 🚶", "lagi rebahan 😴", "gak tau juga 😶"],
+  ["di kamar", "di luar", "rebahan", "gak tau"],
 
-  ["udah 🍚", "belum 😵", "nanti aja 🍜", "lupa makan 😭"],
+  ["udah", "belum", "nanti", "lupa"],
 
-  ["rebahan 😌", "scroll hp 📱", "denger lagu 🎧", "diam aja 😶‍🌫️"],
+  ["rebahan", "scroll hp", "denger lagu", "diam aja"],
 
-  ["peluk kamu 🤍", "duduk deket aja 🫶", "ngobrol santai 😙", "malu 😳"],
+  ["peluk kamu", "deket aja", "ngobrol", "malu"],
 
-  ["iya dikit 👀", "sering 😶‍🌫️", "gak tau 🤔", "gak sih 😗"],
+  ["iya", "sering", "gak tau", "enggak"],
 
-  ["nyaman 😳", "lumayan 😌", "masih biasa aja 😶", "jadi hangat 🤍"],
+  ["nyaman", "lumayan", "biasa aja", "agak risih"],
 ];
 
-// 💞 responses (lebih natural & nyambung emosinya)
+// 💞 responses (natural, kayak pacaran santai)
 const responses = [
   {
-    "di kamar 🛏️": [
-      "lagi santai di kamar ya 😌",
-      "pantes keliatan tenang gitu",
-      "kamar emang tempat paling nyaman 🤍",
-    ],
-    "di luar 🚶": [
-      "lagi keluar ya kamu 😙",
-      "hati-hati ya di luar",
-      "jangan capek-capek banget ya",
-    ],
-    "lagi rebahan 😴": [
-      "rebahan terus ya 😭",
-      "enak banget sih itu",
-      "aku jadi ikut santai juga",
-    ],
-    "gak tau juga 😶": [
-      "kok bisa gak tau sih 😭",
-      "lagi random aja ya pikiran kamu",
-      "aku temenin aja deh 😌",
-    ],
+    "di kamar": ["oh di kamar", "lagi santai ya", "enak sih itu"],
+    "di luar": ["lagi keluar ya", "hati-hati", "jangan capek"],
+    "rebahan": ["rebahan terus 😭", "mager ya", "aku juga gitu kadang"],
+    "gak tau": ["kok gak tau 😭", "yaudah gapapa", "aku temenin"],
   },
 
   {
-    "udah 🍚": [
-      "bagus 😳",
-      "jangan lupa makan teratur ya",
-      "aku jadi tenang dikit 🤍",
-    ],
-    "belum 😵": [
-      "eh makan dulu ya 😠",
-      "nanti kamu lemes loh",
-      "aku tunggu kamu makan dulu 😤",
-    ],
-    "nanti aja 🍜": [
-      "jangan nanti terus ya 😭",
-      "aku takut kamu kelupaan",
-      "ingat makan ya 😙",
-    ],
-    "lupa makan 😭": [
-      "ih bahaya itu 😭",
-      "aku marahin pelan ya 😤",
-      "abis ini makan ya janji",
-    ],
+    "udah": ["bagus", "jangan telat makan ya", "oke 👍"],
+    "belum": ["makan dulu", "nanti lemes loh", "aku tunggu"],
+    "nanti": ["jangan nanti mulu", "nanti kelupaan", "makan ya"],
+    "lupa": ["parah 😭", "makan sekarang ya", "janji ya"],
   },
 
   {
-    "rebahan 😌": [
-      "enak banget sih itu 😌",
-      "aku jadi pengen rebahan juga",
-      "kita sama-sama santai aja ya",
-    ],
-    "scroll hp 📱": [
-      "scroll terus ya kamu 😗",
-      "tapi jangan lupa istirahat juga ya",
-      "aku di sini nemenin kok",
-    ],
-    "denger lagu 🎧": [
-      "lagi denger lagu apa tuh 😙",
-      "kayaknya kamu lagi di dunia kamu sendiri ya",
-      "aku jadi penasaran lagunya",
-    ],
-    "diam aja 😶‍🌫️": [
-      "diam kamu tuh tenang banget 😌",
-      "aku suka suasana kayak gitu",
-      "aku ikut diem bareng kamu",
-    ],
+    "rebahan": ["males banget ya", "aku ngerti sih", "enak emang"],
+    "scroll hp": ["scroll terus 😗", "capek mata loh", "istirahat juga"],
+    "denger lagu": ["lagu apa?", "kamu lagi chill ya", "enak tuh"],
+    "diam aja": ["tenang banget kamu", "aku suka sih", "sunyi ya"],
   },
 
   {
-    "peluk kamu 🤍": [
-      "eh… 😳",
-      "aku diem dulu bentar ya",
-      "aku bayangin itu sekarang",
-    ],
-    "duduk deket aja 🫶": [
-      "deket gitu aja udah cukup 😌",
-      "gak perlu jauh-jauh",
-      "aku suka suasana itu",
-    ],
-    "ngobrol santai 😙": [
-      "kita ngobrol aja terus ya",
-      "aku suka banget ini 😌",
-      "gak perlu dipikir ribet",
-    ],
-    "malu 😳": [
-      "ih kenapa malah malu 😭",
-      "lucu banget sih kamu",
-      "aku diem dulu deh",
-    ],
+    "peluk kamu": ["eh 😳", "ngapain tiba-tiba", "bikin aku diem"],
+    "deket aja": ["ya udah gitu aja", "gak perlu jauh-jauh", "simple aja"],
+    "ngobrol": ["ya ngobrol aja", "aku gak keberatan", "santai aja"],
+    "malu": ["ngapain malu 😭", "lucu kamu", "aku diem deh"],
   },
 
   {
-    "iya dikit 👀": [
-      "loh jadi kepikiran aku ya 😳",
-      "aku jadi senyum sendiri",
-      "jangan kebanyakan ya nanti kangen 😙",
-    ],
-    "sering 😶‍🌫️": [
-      "serius? 😳",
-      "aku jadi agak salting",
-      "aku juga kadang gitu sih 😙",
-    ],
-    "gak tau 🤔": [
-      "gapapa kok 😌",
-      "gak semua hal harus jelas",
-      "aku ngerti kamu",
-    ],
-    "gak sih 😗": [
-      "ih cuek banget 😭",
-      "aku pura-pura gak denger ya",
-      "padahal aku kepikiran kamu 😙",
-    ],
+    "iya": ["oh pantes", "kepikiran apa?", "cerita aja"],
+    "sering": ["sering banget?", "sama ya kadang", "aku juga"],
+    "gak tau": ["yaudah santai", "gak harus dipikirin", "pelan-pelan aja"],
+    "enggak": ["oh yaudah", "berarti santai ya", "oke"],
   },
 
   {
-    "nyaman 😳": [
-      "syukurlah 😌",
-      "aku juga ngerasa nyaman sama kamu",
-      "🤍",
-    ],
-    "lumayan 😌": [
-      "lumayan itu udah bagus 😙",
-      "pelan-pelan aja ya",
-      "aku di sini",
-    ],
-    "masih biasa aja 😶": [
-      "gapapa 😌",
-      "kita kan masih baru ngobrol",
-      "semua pelan-pelan ya",
-    ],
-    "jadi hangat 🤍": [
-      "itu aku suka 😳",
-      "aku juga ngerasa hangat",
-      "kayaknya kita nyambung ya 🤍",
-    ],
+    "nyaman": ["syukur", "aku juga santai sama kamu", "oke 👍"],
+    "lumayan": ["yaudah cukup", "pelan-pelan aja", "gak papa"],
+    "biasa aja": ["gapapa", "baru juga", "wajar", "oke"],
+    "agak risih": ["oh 😶", "maaf ya", "aku jaga jarak"],
   },
 ];
 
@@ -217,11 +120,11 @@ function speak(lines) {
   queue = queue.then(async () => {
     for (let line of lines) {
       showTyping();
-      await wait(500 + Math.random() * 350);
+      await wait(450 + Math.random() * 300);
       hideTyping();
 
       addMsg(line, "bot");
-      await wait(650);
+      await wait(500);
     }
   });
 
@@ -252,15 +155,15 @@ function handle(opt) {
     step++;
 
     if (step < questions.length) {
-      speak(["hmm… 😶", questions[step]]).then(() => {
+      speak([questions[step]]).then(() => {
         showChoices();
         locked = false;
       });
     } else {
       speak([
-        "kayaknya kita sampai sini dulu ya 😌",
-        "aku seneng banget ngobrol sama kamu 🤍",
-        "nanti kita lanjut lagi ya",
+        "udah dulu ya",
+        "nanti kita lanjut lagi",
+        "bye 😗",
       ]);
 
       choices.innerHTML = "";
