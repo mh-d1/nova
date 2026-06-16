@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="nova-icon.png">
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- 🌙 HOME SCREEN -->
+  <section id="home" class="home">
+
+    <div class="home-box">
+      <div class="home-title">💞 Nova</div>
+      <div class="home-sub">ruang kecil buat ngobrol yang hangat</div>
+
+      <button class="start-btn" onclick="startChat()">
+        mulai ngobrol
+      </button>
+    </div>
+
+  </section>
+
+  <!-- 💬 CHAT SCREEN -->
+  <section id="chatScreen" class="chat-screen hidden">
+
+    <!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-left">
+    <div class="back" onclick="goHome()">‹</div>
+
+    <div class="avatar"></div>
+
+    <div class="name">
+      Nova<br>
+      <span>online</span>
+    </div>
+  </div>
+
+  <!-- 🎧 MUSIC BUTTON (REPLACE ⋯) -->
+  <div class="nav-right">
+    <button id="musicBtn" class="music-btn">▶</button>
+  </div>
+</div>
+    <!-- CHAT -->
+    <div class="chat" id="chat"></div>
+
+    <!-- TYPING -->
+    <div id="typing" class="typing hidden">Nova mengetik...</div>
+
+    <!-- CHOICES -->
+    <div class="choices" id="choices"></div>
+
+  </section>
+
+</div>
+<audio id="bgm" loop>
+  <source src="payungteduh.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>
