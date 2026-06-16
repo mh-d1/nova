@@ -251,8 +251,8 @@ function handle(opt) {
     } else {
       speak([
         "aku seneng kamu di sini 😳",
-        "jangan ilang ya…",
-        "aku tunggu kamu 🤍",
+        "tapi obrolan ini harus selesai…",
+        "semoga kamu bahagia disana yah 🤍",
       ]);
 
       choices.innerHTML = "";
