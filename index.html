@@ -1,68 +1,269 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Nova</title>
-<link rel="stylesheet" href="style.css">
+
 <link rel="icon" type="image/png" href="nova-icon.png">
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<div class="background-glow"></div>
+
 <div id="app">
 
-  <!-- 🌙 HOME SCREEN -->
-  <section id="home" class="home">
+    <!-- ========================= -->
+    <!-- HOME -->
+    <!-- ========================= -->
 
-    <div class="home-box">
-      <div class="home-title">💞 Nova</div>
-      <div class="home-sub">ruang kecil buat ngobrol yang hangat</div>
+    <section id="home" class="home">
 
-      <button class="start-btn" onclick="startChat()">
-        mulai ngobrol
-      </button>
-    </div>
+        <div class="home-card">
 
-  </section>
+            <div class="home-avatar">
 
-  <!-- 💬 CHAT SCREEN -->
-  <section id="chatScreen" class="chat-screen hidden">
+                <div class="avatar-circle"></div>
 
-    <!-- NAVBAR -->
-<div class="navbar">
-  <div class="nav-left">
-    <div class="back" onclick="goHome()">‹</div>
+            </div>
 
-    <div class="avatar"></div>
+            <h1>Nova</h1>
 
-    <div class="name">
-      Nova<br>
-      <span>online</span>
-    </div>
-  </div>
+            <p>
+                ruang kecil untuk ngobrol santai,
+                tanpa terburu-buru.
+            </p>
 
-  <!-- 🎧 MUSIC BUTTON (REPLACE ⋯) -->
-  <div class="nav-right">
-    <button id="musicBtn" class="music-btn">▶</button>
-  </div>
-</div>
+            <button class="start-btn" onclick="startChat()">
+                Mulai Mengobrol
+            </button>
+
+            <div class="home-footer">
+
+                dibuat dengan ☕ dan sedikit rasa penasaran.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+
+
+    <!-- ========================= -->
     <!-- CHAT -->
-    <div class="chat" id="chat"></div>
+    <!-- ========================= -->
 
-    <!-- TYPING -->
-    <div id="typing" class="typing hidden">Nova mengetik...</div>
+    <section id="chatScreen" class="chat-screen hidden">
 
-    <!-- CHOICES -->
-    <div class="choices" id="choices"></div>
 
-  </section>
+
+        <!-- NAVBAR -->
+
+        <header class="navbar">
+
+            <div class="nav-left">
+
+                <button
+                    class="back-btn"
+                    onclick="goHome()">
+
+                    ←
+
+                </button>
+
+                <div class="avatar-wrapper">
+
+                    <div
+                        class="avatar"
+                        id="avatar">
+                    </div>
+
+                    <span
+                        class="online-dot">
+                    </span>
+
+                </div>
+
+                <div class="user-info">
+
+                    <div class="username">
+
+                        Nova
+
+                    </div>
+
+                    <div
+                        class="status"
+                        id="statusText">
+
+                        online
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="nav-right">
+
+                <button
+                    id="musicBtn"
+                    class="icon-btn"
+                    title="Musik">
+
+                    ♪
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+
+
+        <!-- CHAT AREA -->
+
+        <main
+            id="chat"
+            class="chat">
+
+        </main>
+
+
+
+
+
+        <!-- TYPING -->
+
+        <div
+            id="typing"
+            class="typing hidden">
+
+            <div class="typing-avatar">
+
+                <div class="mini-avatar"></div>
+
+            </div>
+
+            <div class="typing-bubble">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <!-- CHOICES -->
+
+        <div
+            id="choices"
+            class="choices">
+
+        </div>
+
+
+
+    </section>
 
 </div>
-<audio id="bgm" loop>
-  <source src="payungteduh.mp3" type="audio/mpeg">
+
+
+
+
+
+<!-- ========================= -->
+<!-- AUDIO -->
+<!-- ========================= -->
+
+<audio
+    id="bgm"
+    loop>
+
+    <source
+        src="payungteduh.mp3"
+        type="audio/mpeg">
+
 </audio>
 
+
+
+
+
+<!-- ========================= -->
+<!-- TEMPLATE CHAT BOT -->
+<!-- ========================= -->
+
+<template id="botTemplate">
+
+    <div class="message-row bot-row">
+
+        <div class="bubble bot">
+
+            <div class="bubble-text">
+
+            </div>
+
+            <div class="bubble-time">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+
+
+
+<!-- ========================= -->
+<!-- TEMPLATE CHAT USER -->
+<!-- ========================= -->
+
+<template id="userTemplate">
+
+    <div class="message-row user-row">
+
+        <div class="bubble user">
+
+            <div class="bubble-text">
+
+            </div>
+
+            <div class="bubble-time">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</template>
+
+
+
+
+
 <script src="script.js"></script>
+
 </body>
 </html>
