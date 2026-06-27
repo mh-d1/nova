@@ -4,42 +4,62 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nova V3 🌸</title>
+<title>Nova V3 Pro 🌸</title>
 
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="app">
+<div class="app">
 
 <!-- HOME -->
 <section id="home" class="home">
-    <div class="home-card">
+
+    <div class="card">
+
         <div class="logo">🌸</div>
-        <h1>Nova V3</h1>
-        <p>AI companion chat engine</p>
-        <button onclick="startChat()">Start</button>
+
+        <h1>Nova</h1>
+
+        <p>your soft conversation companion</p>
+
+        <button onclick="startChat()">Start Chat</button>
+
     </div>
+
 </section>
 
 <!-- CHAT -->
-<section id="chatScreen" class="chat hidden">
+<section id="chatScreen" class="chatScreen hidden">
 
-    <header class="topbar">
-        <div>
-            <div class="name">Nova</div>
-            <div id="status">online</div>
+    <!-- TOP BAR -->
+    <div class="topbar">
+
+        <div class="profile">
+
+            <div class="avatar">🌸</div>
+
+            <div>
+                <div class="name">Nova</div>
+                <div id="status" class="status">online</div>
+            </div>
+
         </div>
-        <button onclick="goHome()">←</button>
-    </header>
 
-    <main id="chatBox" class="chatBox"></main>
+        <button onclick="goHome()" class="back">←</button>
 
+    </div>
+
+    <!-- CHAT AREA -->
+    <div id="chatBox" class="chatBox"></div>
+
+    <!-- TYPING -->
     <div id="typing" class="typing hidden">
         <span></span><span></span><span></span>
     </div>
 
+    <!-- CHOICES -->
     <div id="choices" class="choices"></div>
 
 </section>
