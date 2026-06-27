@@ -1,154 +1,232 @@
+/* =========================
+   NOVA V3 CORE ENGINE
+========================= */
+
 const home = document.getElementById("home");
 const chatScreen = document.getElementById("chatScreen");
-const chat = document.getElementById("chat");
-const choices = document.getElementById("choices");
+const chatBox = document.getElementById("chatBox");
+const choicesBox = document.getElementById("choices");
 const typing = document.getElementById("typing");
-const statusText = document.getElementById("statusText");
-const musicBtn = document.getElementById("musicBtn");
-const bgm = document.getElementById("bgm");
+const statusEl = document.getElementById("status");
 
-const app = {
-    step:0,
-    locked:false,
-    music:false,
-    queue:Promise.resolve(),
-    memory:{}
+/* =========================
+   STATE ENGINE
+========================= */
+
+const state = {
+step:0,
+memory:{},
+mood:"neutral",
+relationship:0,
+locked:false,
+queue:Promise.resolve()
 };
 
-const nova = {
-    mood:"happy",
-    typing:false
-};
+/* =========================
+   DIALOG SYSTEM
+========================= */
 
-/* ===================== DATA ===================== */
-
-const conversation = [/* sama seperti punyamu */];
-
-const intro = [
-"haii 😊","aku Nova.","seneng kamu datang 🌸","boleh aku nemenin kamu?"
+const story = [
+{
+q:"lagi di mana sekarang? 🌸",
+a:{
+"kamar":[
+"di kamar ya 😊",
+"santai banget itu",
+"aku suka vibe itu"
+],
+"luar":[
+"lagi di luar ya",
+"hati-hati 🌿"
+],
+"rebahan":[
+"rebahan itu valid 😭"
+]
+}
+},
+{
+q:"udah makan belum? 🍽️",
+a:{
+"udah":[
+"bagus 😊",
+"aku seneng dengernya"
+],
+"belum":[
+"loh 😭",
+"habis ini makan ya"
+]
+}
+},
+{
+q:"lagi ngapain? 👀",
+a:{
+"scroll":[
+"ketahuan 😭"
+],
+"diam":[
+"tenang banget ya"
+]
+}
+}
 ];
 
-const filler = ["hehe 🤍","hmm...","aku penasaran deh 😊"];
+/* =========================
+   HELPERS
+========================= */
 
-/* ===================== HELPERS ===================== */
-
-function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-function random(a){ return a[Math.floor(Math.random()*a.length)]; }
-
-function setStatus(t){ statusText.textContent=t; }
-
-function scroll(){ chat.scrollTop = chat.scrollHeight; }
-
-/* ===================== BUBBLE ===================== */
+const wait = ms => new Promise(r=>setTimeout(r,ms));
 
 function add(text,type){
-    const d=document.createElement("div");
-    d.className=`msg ${type}`;
-    d.textContent=text;
-    chat.appendChild(d);
-    scroll();
+const d=document.createElement("div");
+d.className=`msg ${type}`;
+d.textContent=text;
+chatBox.appendChild(d);
+chatBox.scrollTop=chatBox.scrollHeight;
 }
 
-/* ===================== TYPING ===================== */
-
-function showTyping(){ typing.classList.remove("hidden"); }
-function hideTyping(){ typing.classList.add("hidden"); }
-
-/* ===================== SPEAK (FINAL FIX) ===================== */
-
-function speak(lines){
-    app.queue = app.queue.then(async()=>{
-        for(const l of lines){
-
-            showTyping();
-            await wait(800);
-            hideTyping();
-
-            if(l) add(l,"bot");
-            await wait(300);
-        }
-    });
+function setStatus(t){
+statusEl.textContent=t;
 }
 
-/* ===================== CHOICES ===================== */
+/* =========================
+   TYPING
+========================= */
 
-function showChoices(){
-    choices.innerHTML="";
-    const c=conversation[app.step];
-
-    Object.keys(c.options).forEach(opt=>{
-        const b=document.createElement("button");
-        b.className="choice";
-        b.textContent=opt;
-
-        b.onclick=()=>handle(opt);
-
-        choices.appendChild(b);
-    });
+function showTyping(){
+typing.classList.remove("hidden");
+setStatus("typing...");
 }
 
-/* ===================== MEMORY ===================== */
-
-function remember(k,v){ app.memory[k]=v; }
-function recall(k){ return app.memory[k]; }
-
-/* ===================== MOOD ===================== */
-
-function reactMemory(){
-    if(app.memory.step_1==="belum") nova.mood="care";
+function hideTyping(){
+typing.classList.add("hidden");
+setStatus("online");
 }
 
-/* ===================== ADAPTIVE ===================== */
+/* =========================
+   MEMORY SYSTEM
+========================= */
 
-function adaptiveQuestion(){
-    return conversation[app.step].question;
+function remember(k,v){
+state.memory[k]=v;
 }
 
-/* ===================== FLOW ===================== */
+function recall(k){
+return state.memory[k];
+}
+
+/* =========================
+   MOOD ENGINE
+========================= */
+
+function updateMood(){
+if(state.memory.step_1==="belum") state.mood="care";
+if(state.memory.step_0==="luar") state.mood="alert";
+}
+
+/* =========================
+   SPEAK ENGINE
+========================= */
+
+async function speak(lines){
+
+state.queue = state.queue.then(async()=>{
+
+for(const line of lines){
+
+showTyping();
+await wait(700);
+hideTyping();
+
+if(line) add(line,"bot");
+
+await wait(300);
+}
+
+});
+
+}
+
+/* =========================
+   CHOICES
+========================= */
+
+function renderChoices(){
+choicesBox.innerHTML="";
+const s=story[state.step];
+
+Object.keys(s.a).forEach(opt=>{
+const b=document.createElement("button");
+b.textContent=opt;
+
+b.onclick=()=>handle(opt);
+
+choicesBox.appendChild(b);
+});
+}
+
+/* =========================
+   HANDLE INPUT
+========================= */
 
 async function handle(opt){
 
-    if(app.locked) return;
-    app.locked=true;
+if(state.locked) return;
+state.locked=true;
 
-    add(opt,"user");
-    remember(`step_${app.step}`,opt);
-    reactMemory();
+add(opt,"user");
 
-    const c=conversation[app.step];
-    let reply=[...c.options[opt]];
+remember(`step_${state.step}`,opt);
+updateMood();
 
-    await speak(reply);
+const data=story[state.step];
 
-    app.step++;
+await speak(data.a[opt]);
 
-    if(app.step<conversation.length){
-        await speak([adaptiveQuestion()]);
-        showChoices();
-        app.locked=false;
-        return;
-    }
+state.step++;
 
-    await speak(["makasih ya 🤍"]);
+if(state.step < story.length){
+
+await speak([story[state.step].q]);
+renderChoices();
+
+state.locked=false;
+return;
 }
 
-/* ===================== START ===================== */
+await speak([
+"makasih ya 🤍",
+"obrolan ini hangat banget"
+]);
+
+state.locked=false;
+}
+
+/* =========================
+   START
+========================= */
 
 async function startChat(){
-    home.classList.add("hidden");
-    chatScreen.classList.remove("hidden");
 
-    app.step=0;
-    chat.innerHTML="";
+home.classList.add("hidden");
+chatScreen.classList.remove("hidden");
 
-    await speak(intro);
-    await speak([adaptiveQuestion()]);
-    showChoices();
+state.step=0;
+chatBox.innerHTML="";
+
+await speak([
+"hai 🌸",
+"aku Nova V3"
+]);
+
+await speak([story[0].q]);
+
+renderChoices();
 }
 
-/* ===================== HOME ===================== */
+/* =========================
+   HOME
+========================= */
 
 function goHome(){
-    location.reload();
+location.reload();
 }
