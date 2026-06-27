@@ -1,6 +1,8 @@
 /* ======================================================
-   NOVA V3 PRO - FULL JS SYSTEM
-   Natural chat engine (warm + long + stable)
+   🌸 NOVA V3 ULTIMATE (CLEAN VERSION)
+   - smooth WA flow
+   - easy edit content block
+   - no double question fix
 ====================================================== */
 
 /* =========================
@@ -13,205 +15,176 @@ const chatBox = document.getElementById("chatBox");
 const choices = document.getElementById("choices");
 const typing = document.getElementById("typing");
 const status = document.getElementById("status");
+const musicBtn = document.getElementById("musicBtn");
+const bgm = document.getElementById("bgm");
 
 /* =========================
-   STATE SYSTEM
+   STATE
 ========================= */
 
 const state = {
-    step: 0,
-    memory: {},
-    locked: false,
-    queue: Promise.resolve()
+  step: 0,
+  memory: {},
+  locked: false,
+  queue: Promise.resolve(),
+  music: false,
 };
 
-/* =========================
-   STORY (NATURAL LONG VERSION)
-========================= */
+/* ======================================================
+   🌸 CONTENT ZONE (EDIT INI SAJA)
+   INTRO + STORY + ENDING
+====================================================== */
 
-const story = [
-{
-q:"lagi di mana sekarang? 🌸",
-a:{
-"kamar":[
-"di kamar ya 😊",
-"lagi santai gitu?",
-"aku bayangin kamu lagi rebahan sambil scroll pelan-pelan",
-"vibenya tenang banget sih itu"
-],
-"luar":[
-"lagi di luar ya",
-"semoga ga terlalu capek 🌿",
-"tapi enak juga ya udara luar kadang",
-"jangan kelamaan capeknya ya"
-],
-"rebahan":[
-"rebahan 😭 klasik banget",
-"itu posisi paling sulit dilawan sih",
-"aku ngerti banget itu mode 'aku cuma mau diam sebentar' 🤍",
-"tapi biasanya sebentarnya jadi lama ya 😏"
-]
-}
-},
-
-{
-q:"udah makan belum? 🍽️",
-a:{
-"udah":[
-"bagus lah 😊",
-"aku jadi tenang dengernya",
-"minimal kamu udah isi energi ya",
-"jangan lupa minum juga nanti"
-],
-"belum":[
-"loh belum? 🥺",
-"jangan kebiasaan ya",
-"aku ga marahin sih… tapi aku concern aja",
-"habis ini makan ya, janji 🤍"
-]
-}
-},
-
-{
-q:"lagi ngapain sekarang? 👀",
-a:{
-"scroll":[
-"scrolling ya 😄",
-"itu aktivitas yang ga terasa tapi tiba-tiba 1 jam hilang",
-"aku juga kadang gitu sih kalau lagi santai",
-"lagi cari apa atau cuma lewat-lewat aja?"
-],
-"diam":[
-"lagi diem ya",
-"kadang diem itu enak juga sih",
-"kayak pause dari semuanya sebentar",
-"aku ngerti kok itu rasanya"
-],
-"musik":[
-"denger musik ya 🎧",
-"itu mood changer paling cepat sih",
-"lagu bisa bikin dunia kerasa beda banget",
-"lagi denger lagu apa sekarang?"
-]
-}
-},
-
-{
-q:"kalau aku duduk di sebelah kamu… kamu bakal ngapain? 🤍",
-a:{
-"peluk":[
-"eh 😳 tiba-tiba banget",
-"tapi itu… bikin aku senyum sih",
-"aku ga tau harus jawab apa selain… itu hangat banget"
-],
-"ngobrol":[
-"aku suka jawaban itu",
-"ngobrol itu simpel tapi kadang paling nyaman",
-"ga perlu hal besar buat ngerasa dekat ya"
-],
-"diam":[
-"diam juga oke sih",
-"kadang ga semua harus diisi kata-kata",
-"ada momen yang cukup ditemani aja"
-]
-}
-},
-
-{
-q:"akhir-akhir ini kamu lagi kepikiran sesuatu gak? 👀",
-a:{
-"iya":[
-"hm… pelan-pelan ya",
-"kadang kepala emang suka penuh sendiri",
-"aku ga akan maksa kamu cerita detailnya",
-"tapi aku ada di sini kalau kamu mau cerita"
-],
-"enggak":[
-"syukurlah kalau lagi agak ringan",
-"tapi kalau nanti tiba-tiba berat lagi juga gapapa",
-"naik turun itu normal kok"
-]
-}
-}
-];
-
-/* =========================
+const CONTENT = {
+  /* =========================
    INTRO
 ========================= */
+  intro: [
+    "haii kamu 🌸",
+    "aku Nova ya",
+    "akhirnya kamu muncul juga 😶",
 
-const intro = [
-"hai 🌸",
-"aku Nova",
-"aku ga tau kamu lagi gimana hari ini…",
-"tapi aku seneng kamu datang",
-"kalau capek, kita ngobrol pelan-pelan aja ya 🤍"
-];
+    "aku tadi lagi santai sambil nunggu kamu",
+    "tapi aku pura-pura nggak nungguin sih wkwk 🤍",
+
+    "eh… boleh ngobrol sebentar gak? aku pengen tau kabar kamu dulu",
+  ],
+
+  /* =========================
+   STORY (CHAT FLOW)
+========================= */
+  story: [
+    {
+      q: "hari kamu tadi gimana? 🌸",
+      a: {
+        baik: [
+          "ohh syukurlah 😊",
+          "aku seneng dengernya",
+          "berarti hari kamu nggak terlalu berat ya",
+          "aku jadi agak tenang sekarang",
+        ],
+        capek: [
+          "eh capek ya 🥺",
+          "pantes kamu keliatan agak lemes",
+          "sini dulu tarik napas pelan ya",
+          "aku temenin kamu pelan-pelan 🤍",
+        ],
+        biasa: [
+          "oh gitu 😶",
+          "hari netral ya",
+          "nggak jelek tapi juga nggak spesial ya",
+          "yang penting kamu masih jalanin hari ini",
+        ],
+      },
+    },
+
+    {
+      q: "kamu sekarang lagi di mana? 🌿",
+      a: {
+        kamar: [
+          "di kamar ya 😊",
+          "hmm enak sih pasti santai",
+          "aku bayangin kamu lagi rebahan atau duduk diem",
+          "kamar emang tempat paling nyaman ya",
+        ],
+        luar: [
+          "lagi di luar ya 😮",
+          "hati-hati ya jangan capek banget",
+          "cuaca juga kadang nggak jelas",
+          "jangan lupa istirahat nanti ya",
+        ],
+      },
+    },
+
+    {
+      q: "tadi kamu ngapain aja hari ini? 👀",
+      a: {
+        kerja: [
+          "ohh sibuk ya 😮",
+          "pantes capeknya kerasa",
+          "kamu tuh kuat juga ternyata",
+          "tapi jangan lupa istirahat ya",
+        ],
+        rebahan: [
+          "wkwk rebahan lagi 😭",
+          "itu kamu banget sih",
+          "aku ngerti kok itu nyaman banget",
+          "aku juga bakal gitu kalau bisa",
+        ],
+      },
+    },
+  ],
+
+  /* =========================
+   ENDING
+========================= */
+  ending: [
+    "hmm… kita udah ngobrol lumayan lama ya 🌸",
+    "aku seneng kamu mau cerita sama aku hari ini",
+
+    "kalau nanti kamu lagi kosong atau capek",
+    "balik lagi ya 🤍",
+
+    "aku bakal di sini kok",
+  ],
+};
 
 /* =========================
    HELPERS
 ========================= */
 
-const wait = ms => new Promise(r => setTimeout(r, ms));
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function add(text, type) {
-    const d = document.createElement("div");
-    d.className = `msg ${type}`;
-    d.textContent = text;
-    chatBox.appendChild(d);
-    chatBox.scrollTop = chatBox.scrollHeight;
+  const d = document.createElement("div");
+  d.className = `msg ${type}`;
+  d.textContent = text;
+  chatBox.appendChild(d);
+  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 function setStatus(t) {
-    status.textContent = t;
+  status.textContent = t;
 }
 
 /* =========================
-   UI STATES
+   TYPING
 ========================= */
 
 function showTyping() {
-    typing.classList.remove("hidden");
-    setStatus("typing...");
+  typing.classList.remove("hidden");
+  setStatus("typing...");
 }
 
 function hideTyping() {
-    typing.classList.add("hidden");
-    setStatus("online");
+  typing.classList.add("hidden");
+  setStatus("online");
 }
 
 /* =========================
-   MEMORY SYSTEM
-========================= */
-
-function remember(k, v) {
-    state.memory[k] = v;
-}
-
-function recall(k) {
-    return state.memory[k];
-}
-
-/* =========================
-   SPEAK ENGINE (STABLE)
+   SPEAK ENGINE
 ========================= */
 
 async function speak(lines) {
-    state.queue = state.queue.then(async () => {
+  state.queue = state.queue.then(async () => {
+    for (const line of lines) {
+      showTyping();
+      await wait(700 + Math.random() * 400);
+      hideTyping();
+      if (line) add(line, "bot");
+      await wait(250);
+    }
+  });
 
-        for (const line of lines) {
+  return state.queue;
+}
 
-            showTyping();
-            await wait(700 + Math.random() * 500);
-            hideTyping();
+/* =========================
+   FLOW SAFE ACCESS
+========================= */
 
-            if (line) add(line, "bot");
-
-            await wait(250);
-        }
-
-    });
-
-    return state.queue;
+function getCurrent() {
+  return CONTENT.story?.[state.step];
 }
 
 /* =========================
@@ -219,22 +192,19 @@ async function speak(lines) {
 ========================= */
 
 function renderChoices() {
-    choices.innerHTML = "";
+  choices.innerHTML = "";
 
-    const current = story[state.step];
-    const options = Object.keys(current.a);
+  const current = getCurrent();
+  if (!current) return;
 
-    options.forEach(opt => {
+  Object.keys(current.a).forEach((opt) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    b.textContent = opt;
 
-        const btn = document.createElement("button");
-        btn.className = "choice";
-        btn.textContent = opt;
-
-        btn.onclick = () => handle(opt);
-
-        choices.appendChild(btn);
-
-    });
+    b.onclick = () => handle(opt);
+    choices.appendChild(b);
+  });
 }
 
 /* =========================
@@ -242,54 +212,68 @@ function renderChoices() {
 ========================= */
 
 async function handle(opt) {
+  if (state.locked) return;
+  state.locked = true;
 
-    if (state.locked) return;
-    state.locked = true;
+  choices.innerHTML = "";
 
-    add(opt, "user");
-    remember(`step_${state.step}`, opt);
+  add(opt, "user");
 
-    const current = story[state.step];
-    const reply = current.a[opt];
+  const current = getCurrent();
 
-    await speak(reply);
+  await speak(current.a[opt] || ["..."]);
 
-    state.step++;
+  state.step++;
 
-    if (state.step < story.length) {
+  const next = getCurrent();
 
-        await speak([story[state.step].q]);
-        renderChoices();
-
-        state.locked = false;
-        return;
-    }
-
-    await speak([
-        "makasih ya 🤍",
-        "aku seneng ngobrol sama kamu"
-    ]);
-
+  if (next) {
+    await speak([next.q]);
+    renderChoices();
     state.locked = false;
+    return;
+  }
+
+  await ending();
+  state.locked = false;
 }
 
 /* =========================
-   START CHAT (FIXED)
+   ENDING
+========================= */
+
+async function ending() {
+  await speak(CONTENT.ending);
+
+  const btn = document.createElement("button");
+  btn.className = "choice";
+  btn.textContent = "💬 ngobrol lagi";
+  btn.onclick = startChat;
+
+  choices.appendChild(btn);
+}
+
+/* =========================
+   START CHAT (FIXED FLOW)
 ========================= */
 
 window.startChat = async function () {
+  home.classList.add("hidden");
+  chatScreen.classList.remove("hidden");
 
-    home.classList.add("hidden");
-    chatScreen.classList.remove("hidden");
+  chatBox.innerHTML = "";
+  choices.innerHTML = "";
 
-    chatBox.innerHTML = "";
-    state.step = 0;
-    state.memory = {};
+  state.step = 0;
+  state.locked = true;
 
-    await speak(intro);
-    await speak([story[0].q]);
+  await speak(CONTENT.intro);
 
-    renderChoices();
+  await speak([CONTENT.story[0].q]);
+
+  renderChoices();
+
+  state.locked = false;
 };
 
 /* =========================
@@ -297,5 +281,21 @@ window.startChat = async function () {
 ========================= */
 
 function goHome() {
-    location.reload();
+  location.reload();
 }
+
+/* =========================
+   MUSIC
+========================= */
+
+musicBtn?.addEventListener("click", () => {
+  state.music = !state.music;
+
+  if (state.music) {
+    bgm.play().catch(() => {});
+    musicBtn.textContent = "♫";
+  } else {
+    bgm.pause();
+    musicBtn.textContent = "♪";
+  }
+});
