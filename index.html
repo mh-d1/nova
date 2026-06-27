@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nova 🌸</title>
+<title>Nova V3 🌸</title>
 
-<link rel="icon" href="nova-icon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,67 +13,39 @@
 
 <div id="app">
 
-    <!-- HOME -->
-    <section id="home" class="home">
+<!-- HOME -->
+<section id="home" class="home">
+    <div class="home-card">
+        <div class="logo">🌸</div>
+        <h1>Nova V3</h1>
+        <p>AI companion chat engine</p>
+        <button onclick="startChat()">Start</button>
+    </div>
+</section>
 
-        <div class="home-card">
+<!-- CHAT -->
+<section id="chatScreen" class="chat hidden">
 
-            <div class="home-logo">🌸</div>
-
-            <h1>Nova</h1>
-
-            <p>ruang kecil buat ngobrol yang hangat 🤍</p>
-
-            <button class="start-btn" onclick="startChat()">
-                mulai ngobrol
-            </button>
-
+    <header class="topbar">
+        <div>
+            <div class="name">Nova</div>
+            <div id="status">online</div>
         </div>
+        <button onclick="goHome()">←</button>
+    </header>
 
-    </section>
+    <main id="chatBox" class="chatBox"></main>
 
-    <!-- CHAT -->
-    <section id="chatScreen" class="chat-screen hidden">
+    <div id="typing" class="typing hidden">
+        <span></span><span></span><span></span>
+    </div>
 
-        <header class="navbar">
+    <div id="choices" class="choices"></div>
 
-            <div class="nav-left">
-
-                <button class="back-btn" onclick="goHome()">←</button>
-
-                <div class="avatar">😊</div>
-
-                <div class="profile">
-
-                    <div class="name">Nova</div>
-
-                    <div id="statusText" class="status">online</div>
-
-                </div>
-
-            </div>
-
-            <button id="musicBtn" class="music-btn">♪</button>
-
-        </header>
-
-        <main id="chat" class="chat"></main>
-
-        <div id="typing" class="typing hidden">
-            <span></span><span></span><span></span>
-        </div>
-
-        <div id="choices" class="choices"></div>
-
-    </section>
+</section>
 
 </div>
 
-<audio id="bgm" loop>
-<source src="payungteduh.mp3" type="audio/mpeg">
-</audio>
-
 <script src="script.js"></script>
-
 </body>
 </html>
