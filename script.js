@@ -20,8 +20,6 @@ const statusText = document.getElementById("statusText");
 const musicBtn = document.getElementById("musicBtn");
 const bgm = document.getElementById("bgm");
 
-const botTemplate = document.getElementById("botTemplate");
-const userTemplate = document.getElementById("userTemplate");
 
 // ======================================================
 // APP
@@ -510,29 +508,7 @@ function addUser(text){
 // NOVA SPEAK
 // ======================================================
 
-function speak(lines){
 
-    app.queue=app.queue.then(async()=>{
-
-        for(const line of lines){
-
-            showTyping();
-
-            await wait(700+Math.random()*500);
-
-            hideTyping();
-
-            addBot(line);
-
-            await wait(420);
-
-        }
-
-    });
-
-    return app.queue;
-
-}
 
 // ======================================================
 // CHOICES
@@ -582,7 +558,7 @@ async function playIntro(){
 
         random(filler),
 
-        conversation[0].question
+        adaptiveQuestion()
 
     ]);
 
@@ -628,6 +604,8 @@ async function handleChoice(option){
     addUser(option);
 
     remember(`step_${app.step}`,option);
+
+    reactMemory();
 
     const current=conversation[app.step];
 
@@ -705,8 +683,7 @@ async function handleChoice(option){
 
         await speak([
 
-            conversation[app.step].question
-
+            adaptiveQuestion()
         ]);
 
         showChoices();
@@ -787,4 +764,360 @@ async function ending(){
 
     choices.appendChild(restart);
 
+}
+
+// ======================================================
+// NOVA V2
+// Script.js
+// Tahap 4 / 6
+// Home • Restart • Music • Init
+// ======================================================
+
+// ======================================================
+// START CHAT
+// ======================================================
+
+async function startChat(){
+
+    home.classList.add("hidden");
+
+    chatScreen.classList.remove("hidden");
+
+    app.step=0;
+
+    app.locked=true;
+
+    app.queue=Promise.resolve();
+
+    app.memory={};
+
+    chat.innerHTML="";
+
+    clearChoices();
+
+    hideTyping();
+
+    await playIntro();
+
+    app.locked=false;
+
+}
+
+// ======================================================
+// RESTART
+// ======================================================
+
+async function restartChat(){
+
+    app.step=0;
+
+    app.locked=true;
+
+    app.queue=Promise.resolve();
+
+    app.memory={};
+
+    chat.innerHTML="";
+
+    clearChoices();
+
+    hideTyping();
+
+    await speak([
+
+        "hehe... 😊",
+
+        "seneng kamu balik lagi 🤍",
+
+        "kita ngobrol dari awal lagi yuk."
+
+    ]);
+
+    await speak([
+
+        conversation[0].question
+
+    ]);
+
+    showChoices();
+
+    app.locked=false;
+
+}
+
+// ======================================================
+// HOME
+// ======================================================
+
+function goHome(){
+
+    home.classList.remove("hidden");
+
+    chatScreen.classList.add("hidden");
+
+    app.step=0;
+
+    app.locked=false;
+
+    app.queue=Promise.resolve();
+
+    app.memory={};
+
+    chat.innerHTML="";
+
+    clearChoices();
+
+    hideTyping();
+
+    if(app.music){
+
+        fadeOut();
+
+    }
+
+}
+
+// ======================================================
+// MUSIC
+// ======================================================
+
+function fadeIn(){
+
+    bgm.volume=0;
+
+    bgm.play().catch(()=>{});
+
+    let volume=0;
+
+    const timer=setInterval(()=>{
+
+        volume+=0.02;
+
+        if(volume>=0.35){
+
+            volume=0.35;
+
+            clearInterval(timer);
+
+        }
+
+        bgm.volume=volume;
+
+    },60);
+
+}
+
+function fadeOut(){
+
+    let volume=bgm.volume;
+
+    const timer=setInterval(()=>{
+
+        volume-=0.02;
+
+        if(volume<=0){
+
+            volume=0;
+
+            bgm.volume=0;
+
+            bgm.pause();
+
+            clearInterval(timer);
+
+            return;
+
+        }
+
+        bgm.volume=volume;
+
+    },60);
+
+    app.music=false;
+
+    musicBtn.textContent="♪";
+
+}
+
+musicBtn.addEventListener("click",()=>{
+
+    app.music=!app.music;
+
+    if(app.music){
+
+        fadeIn();
+
+        musicBtn.textContent="♫";
+
+        return;
+
+    }
+
+    fadeOut();
+
+});
+
+// ======================================================
+// AUTO SCROLL
+// ======================================================
+
+const observer=new MutationObserver(()=>{
+
+    scrollBottom();
+
+});
+
+observer.observe(chat,{
+
+    childList:true
+
+});
+
+// ======================================================
+// SHORTCUT
+// ======================================================
+
+document.addEventListener("keydown",(e)=>{
+
+    if(home.classList.contains("hidden")) return;
+
+    if(e.key==="Enter"){
+
+        startChat();
+
+    }
+
+});
+
+// ======================================================
+// FIRST LOAD
+// ======================================================
+
+hideTyping();
+
+setStatus("online");
+
+// ======================================================
+// NOVA V2
+// Script.js
+// TAHAP 5 / 6
+// Emotion + Memory Upgrade
+// ======================================================
+
+// ======================================================
+// EMOTION ENGINE
+// ======================================================
+
+function setMood(mood){
+
+    nova.mood = mood;
+
+    const moodMap = {
+        happy: "online",
+        sad: "sedikit tenang...",
+        care: "fokus ke kamu...",
+        excited: "aktif ✨"
+    };
+
+    setStatus(moodMap[mood] || "online");
+}
+
+// ======================================================
+// MEMORY REACTION SYSTEM
+// ======================================================
+
+function reactMemory(){
+
+    const m = app.memory;
+
+    if(m.step_1 === "belum") setMood("care");
+
+    if(m.step_0 === "di luar") setMood("happy");
+
+    if(m.step_5 === "nyaman") setMood("happy");
+
+    if(m.step_5 === "agak risih") setMood("sad");
+
+}
+
+// ======================================================
+// NOVA V2
+// Script.js
+// TAHAP 6 / 6
+// Spontaneous Engine + Adaptive Speech
+// ======================================================
+
+// ======================================================
+// RANDOM SPONTANEOUS RESPONSE
+// ======================================================
+
+function maybeInject(){
+
+    const chance = Math.random();
+
+    if(chance < 0.3){
+
+        return random(filler);
+
+    }
+
+    return null;
+}
+
+// ======================================================
+// UPGRADED SPEAK SYSTEM
+// ======================================================
+
+async function speak(lines){
+
+    app.queue = app.queue.then(async () => {
+
+        for(const line of lines){
+
+            const extra = maybeInject();
+
+            if(extra){
+
+                showTyping();
+                await wait(500);
+                hideTyping();
+                addBot(extra);
+                await wait(300);
+            }
+
+            showTyping();
+
+            await wait(700 + Math.random() * 500);
+
+            hideTyping();
+
+            if(line !== "") addBot(line);
+
+            await wait(420);
+        }
+    });
+
+    return app.queue;
+}
+
+// ======================================================
+// ADAPTIVE QUESTION SYSTEM
+// ======================================================
+
+function adaptiveQuestion(){
+
+    const mood = nova.mood;
+    const step = app.step;
+
+    const base = conversation[step].question;
+
+    if(mood === "care"){
+        return base + " (aku ngerasa kamu lagi pengen dipahami ya 🥺)";
+    }
+
+    if(mood === "sad"){
+        return base + " (pelan-pelan aja ya 🤍)";
+    }
+
+    return base;
 }
