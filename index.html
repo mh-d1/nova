@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nova</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="icon" type="image/png" href="nova-icon.png">
+<title>Nova 🌸</title>
+
+<link rel="icon" href="nova-icon.png">
+
 <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
-
-<div class="background-glow"></div>
 
 <div id="app">
 
@@ -26,44 +28,39 @@
 
         <div class="home-card">
 
-            <div class="home-avatar">
+            <div class="home-logo">
 
-                <div class="avatar-circle"></div>
+                🌸
 
             </div>
 
             <h1>Nova</h1>
 
             <p>
-                ruang kecil untuk ngobrol santai,
-                tanpa terburu-buru.
+
+                ruang kecil buat ngobrol yang hangat 🤍
+
             </p>
 
-            <button class="start-btn" onclick="startChat()">
-                Mulai Mengobrol
+            <button
+            class="start-btn"
+            onclick="startChat()">
+
+                mulai ngobrol
+
             </button>
-
-            <div class="home-footer">
-
-                dibuat dengan ☕ dan sedikit rasa penasaran.
-
-            </div>
 
         </div>
 
     </section>
 
-
-
-
-
     <!-- ========================= -->
     <!-- CHAT -->
     <!-- ========================= -->
 
-    <section id="chatScreen" class="chat-screen hidden">
-
-
+    <section
+    id="chatScreen"
+    class="chat-screen hidden">
 
         <!-- NAVBAR -->
 
@@ -72,37 +69,30 @@
             <div class="nav-left">
 
                 <button
-                    class="back-btn"
-                    onclick="goHome()">
+                class="back-btn"
+                onclick="goHome()">
 
                     ←
 
                 </button>
 
-                <div class="avatar-wrapper">
+                <div class="avatar">
 
-                    <div
-                        class="avatar"
-                        id="avatar">
-                    </div>
-
-                    <span
-                        class="online-dot">
-                    </span>
+                    😊
 
                 </div>
 
-                <div class="user-info">
+                <div class="profile">
 
-                    <div class="username">
+                    <div class="name">
 
                         Nova
 
                     </div>
 
                     <div
-                        class="status"
-                        id="statusText">
+                    id="statusText"
+                    class="status">
 
                         online
 
@@ -112,158 +102,62 @@
 
             </div>
 
+            <button
+            id="musicBtn"
+            class="music-btn">
 
+                ♪
 
-            <div class="nav-right">
-
-                <button
-                    id="musicBtn"
-                    class="icon-btn"
-                    title="Musik">
-
-                    ♪
-
-                </button>
-
-            </div>
+            </button>
 
         </header>
 
-
-
-
-
-        <!-- CHAT AREA -->
+        <!-- CHAT -->
 
         <main
-            id="chat"
-            class="chat">
+        id="chat"
+        class="chat">
 
         </main>
-
-
-
-
 
         <!-- TYPING -->
 
         <div
-            id="typing"
-            class="typing hidden">
+        id="typing"
+        class="typing hidden">
 
-            <div class="typing-avatar">
+            <span></span>
 
-                <div class="mini-avatar"></div>
+            <span></span>
 
-            </div>
-
-            <div class="typing-bubble">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </div>
+            <span></span>
 
         </div>
-
-
-
-
 
         <!-- CHOICES -->
 
         <div
-            id="choices"
-            class="choices">
+        id="choices"
+        class="choices">
 
         </div>
-
-
 
     </section>
 
 </div>
 
-
-
-
-
-<!-- ========================= -->
-<!-- AUDIO -->
-<!-- ========================= -->
-
 <audio
-    id="bgm"
-    loop>
+id="bgm"
+loop>
 
-    <source
-        src="payungteduh.mp3"
-        type="audio/mpeg">
+<source
+src="payungteduh.mp3"
+type="audio/mpeg">
 
 </audio>
-
-
-
-
-
-<!-- ========================= -->
-<!-- TEMPLATE CHAT BOT -->
-<!-- ========================= -->
-
-<template id="botTemplate">
-
-    <div class="message-row bot-row">
-
-        <div class="bubble bot">
-
-            <div class="bubble-text">
-
-            </div>
-
-            <div class="bubble-time">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</template>
-
-
-
-
-
-<!-- ========================= -->
-<!-- TEMPLATE CHAT USER -->
-<!-- ========================= -->
-
-<template id="userTemplate">
-
-    <div class="message-row user-row">
-
-        <div class="bubble user">
-
-            <div class="bubble-text">
-
-            </div>
-
-            <div class="bubble-time">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</template>
-
-
-
-
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
