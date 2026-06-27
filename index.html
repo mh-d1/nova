@@ -2,162 +2,80 @@
 <html lang="id">
 
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Nova 🌸</title>
 
 <link rel="icon" href="nova-icon.png">
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <div id="app">
 
-    <!-- ========================= -->
     <!-- HOME -->
-    <!-- ========================= -->
-
     <section id="home" class="home">
 
         <div class="home-card">
 
-            <div class="home-logo">
-
-                🌸
-
-            </div>
+            <div class="home-logo">🌸</div>
 
             <h1>Nova</h1>
 
-            <p>
+            <p>ruang kecil buat ngobrol yang hangat 🤍</p>
 
-                ruang kecil buat ngobrol yang hangat 🤍
-
-            </p>
-
-            <button
-            class="start-btn"
-            onclick="startChat()">
-
+            <button class="start-btn" onclick="startChat()">
                 mulai ngobrol
-
             </button>
 
         </div>
 
     </section>
 
-    <!-- ========================= -->
     <!-- CHAT -->
-    <!-- ========================= -->
-
-    <section
-    id="chatScreen"
-    class="chat-screen hidden">
-
-        <!-- NAVBAR -->
+    <section id="chatScreen" class="chat-screen hidden">
 
         <header class="navbar">
 
             <div class="nav-left">
 
-                <button
-                class="back-btn"
-                onclick="goHome()">
+                <button class="back-btn" onclick="goHome()">←</button>
 
-                    ←
-
-                </button>
-
-                <div class="avatar">
-
-                    😊
-
-                </div>
+                <div class="avatar">😊</div>
 
                 <div class="profile">
 
-                    <div class="name">
+                    <div class="name">Nova</div>
 
-                        Nova
-
-                    </div>
-
-                    <div
-                    id="statusText"
-                    class="status">
-
-                        online
-
-                    </div>
+                    <div id="statusText" class="status">online</div>
 
                 </div>
 
             </div>
 
-            <button
-            id="musicBtn"
-            class="music-btn">
-
-                ♪
-
-            </button>
+            <button id="musicBtn" class="music-btn">♪</button>
 
         </header>
 
-        <!-- CHAT -->
+        <main id="chat" class="chat"></main>
 
-        <main
-        id="chat"
-        class="chat">
-
-        </main>
-
-        <!-- TYPING -->
-
-        <div
-        id="typing"
-        class="typing hidden">
-
-            <span></span>
-
-            <span></span>
-
-            <span></span>
-
+        <div id="typing" class="typing hidden">
+            <span></span><span></span><span></span>
         </div>
 
-        <!-- CHOICES -->
-
-        <div
-        id="choices"
-        class="choices">
-
-        </div>
+        <div id="choices" class="choices"></div>
 
     </section>
 
 </div>
 
-<audio
-id="bgm"
-loop>
-
-<source
-src="payungteduh.mp3"
-type="audio/mpeg">
-
+<audio id="bgm" loop>
+<source src="payungteduh.mp3" type="audio/mpeg">
 </audio>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
